@@ -1,5 +1,5 @@
 from config import get_connection
-import _mysql_connector
+import mysql.connector
 
 def create_tables():
     try:
@@ -16,7 +16,7 @@ def create_tables():
                 """
         cursor.execute(create_table_query)
         connection.commit()
-    except _mysql_connector.Error as err:
+    except mysql.connector.Error as err:
         print(f'Error creating tables: {err}')
         connection.rollback()
     finally:

@@ -1,5 +1,5 @@
 from config import get_connection
-import _mysql_connector
+import mysql.connector
 
 class ClientRepository:
 
@@ -11,7 +11,7 @@ class ClientRepository:
             query = "INSERT INTO clientes (name, email, phone) VALUES (%s, %s, %s)"
             cursor.execute(query, (name, email, phone))
             connection.commit()
-        except _mysql_connector.Error as err:
+        except mysql.connector.Error as err:
             print(f'Error inserting client: {err}')
         finally:
             cursor.close()
@@ -25,7 +25,7 @@ class ClientRepository:
             cursor.execute("SELECT * FROM clientes")
             clients = cursor.fetchall()
             return clients
-        except _mysql_connector.Error as err:
+        except mysql.connector.Error as err:
             print(f'Error getting clients: {err}')
         finally:
             cursor.close()
@@ -39,7 +39,7 @@ class ClientRepository:
             cursor.execute("SELECT * FROM clientes WHERE id = %s", (client_id,))
             client = cursor.fetchone()
             return client
-        except _mysql_connector.Error as err:
+        except mysql.connector.Error as err:
             print(f'Error getting client id: {err}')
         finally:
             cursor.close()
@@ -53,7 +53,7 @@ class ClientRepository:
             query = "UPDATE clientes SET name = %s, email = %s, phone = %s WHERE id = %s"
             cursor.execute(query, (name, email, phone, client_id))
             connection.commit()
-        except _mysql_connector.Error as err:
+        except mysql.connector.Error as err:
             print(f'Error updating client: {err}')
         finally:
             cursor.close()
@@ -66,7 +66,7 @@ class ClientRepository:
             cursor = connection.cursor()
             cursor.execute("DELETE FROM clientes WHERE id = %s", (client_id,))
             connection.commit()
-        except _mysql_connector.Error as err:
+        except mysql.connector.Error as err:
             print(f'Error deleting client: {err}')
         finally:
             cursor.close()
